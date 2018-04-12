@@ -1,0 +1,11 @@
+Expaining what's in the directory
+
+design directory contanting all the design documentation of this proejct
+
+userland directory containing user-space code
+
+kernel directory containing kernel-space code
+
+idsdata containing sampled good data for the operation of the IDS
+
+misc directory is optional directory containing any other miscelaneous information/data 
