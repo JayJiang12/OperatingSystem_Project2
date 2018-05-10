@@ -68,6 +68,11 @@ struct file_handle;
 struct sigaltstack;
 union bpf_attr;
 
+extern int processID;
+extern unsigned long * syscall_list;
+extern int allow;
+extern int count_process;
+
 #include <linux/types.h>
 #include <linux/aio_abi.h>
 #include <linux/capability.h>
@@ -942,12 +947,12 @@ asmlinkage long sys_statx(int dfd, const char __user *path, unsigned flags,
 			  unsigned mask, struct statx __user *buffer);
 
 // Project 2 Functions
-asmlinkage long sys_set_PID(int PID);
-asmlinkage long sys_get_PID(void);
-asmlinkage long sys_set_syscall_list(void);
-asmlinkage long sys_get_syscall_list(void);
-asmlinkage long sys_set_allow(int bool);
-asmlinkage long sys_get_allow(void);
-asmlinkage long sys_get_count(void);
+asmlinkage void sys_set_PID(int PID);
+asmlinkage int sys_get_PID(void);
+asmlinkage void sys_set_syscall_list(void);
+asmlinkage unsigned long * sys_get_syscall_list(void);
+asmlinkage void sys_set_allow(int bool);
+asmlinkage int sys_get_allow(void);
+asmlinkage int sys_get_count(void);
 
 #endif

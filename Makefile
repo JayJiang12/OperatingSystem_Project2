@@ -2,13 +2,8 @@
 VERSION = 4
 PATCHLEVEL = 15
 SUBLEVEL = 0
-<<<<<<< HEAD
 EXTRAVERSION = -cmsc421project2-zjiang1
 NAME = Fearless Coyote
-=======
-EXTRAVERSION = -cmsc421project2-zjiang1 
-NAME = Zhaojie Jiang
->>>>>>> 555a8ceb3c34a36012d8c39fa311c16f550ef168
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"

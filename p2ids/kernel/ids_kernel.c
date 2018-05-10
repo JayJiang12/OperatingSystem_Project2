@@ -3,49 +3,42 @@
 #include<linux/sched.h>
 #include<linux/syscalls.h>
 
-extern int processID;
-extern long * syscall_list;
-extern int allow;
-extern int count;
+int processID;
+unsigned long * syscall_list;
+int allow;
+int count_process;
 
-void set_PID(int PID);
-int get_PID(void);
-void set_syscall_list(void);
-long get_syscall_list(void);
-void set_allow(int bool);
-int get_allow(void);
-int get_count(void);
-
-void set_PID(int PID){
+asmlinkage void sys_set_PID(int PID){
 
   processID = PID;
 }
 
-int get_PID(void){
+asmlinkage int sys_get_PID(void){
 
   return processID;
 }
 
-void set_syscall_list(void){
+asmlinkage void sys_set_syscall_list(void){
 
-  syscall_list = (long*)kmalloc(sizeof(long), GFP_KERNEL);
+  syscall_list = (unsigned long*)kmalloc(sizeof(unsigned long), GFP_KERNEL);
+  count_process = 0;
 }
 
-long * get_syscall_list(void){
+asmlinkage unsigned long * sys_get_syscall_list(void){
   
   return syscall_list;
 }
 
-void set_allow(int bool){
+asmlinkage void sys_set_allow(int bool){
 
   allow = bool;
 }
 
-int get_allow(void){
+asmlinkage int sys_get_allow(void){
 
   return allow;
 }
 
-int get_count(void){
-  return count;
+asmlinkage int sys_get_count(void){
+  return count_process;
 }

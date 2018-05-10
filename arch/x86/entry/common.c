@@ -34,18 +34,6 @@
 #define CREATE_TRACE_POINTS
 #include <trace/events/syscalls.h>
 
-
-/***** files from project 2 ********/
-
-#include "../../../p2ids/kernel/ids_kernel.c"
-
-int processID;
-long * syscall_list;
-int allow;
-int count;
-
-/***** end of project 2 code ********/
-
 #ifdef CONFIG_CONTEXT_TRACKING
 /* Called on entry from user mode with IRQs off. */
 __visible inline void enter_from_user_mode(void)
@@ -281,6 +269,12 @@ __visible void do_syscall_64(struct pt_regs *regs)
 {
 	struct thread_info *ti = current_thread_info();
 	unsigned long nr = regs->orig_ax;
+
+	
+	int processID;
+	unsigned long * syscall_list;
+	int allow;
+	int count_process;
 	
 	enter_from_user_mode();
 	local_irq_enable();
@@ -293,7 +287,7 @@ __visible void do_syscall_64(struct pt_regs *regs)
 	int pid = task_pid_nr(current);
 	
 	if(allow == 1 && processID == pid){
-	  syscall_list[count] = nr; 
+	  syscall_list[count_process] = nr; 
 	}
 
 	/***** end of project 2 code *******/
