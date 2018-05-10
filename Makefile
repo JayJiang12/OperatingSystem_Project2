@@ -2,7 +2,7 @@
 VERSION = 4
 PATCHLEVEL = 15
 SUBLEVEL = 0
-EXTRAVERSION =
+EXTRAVERSION = -cmsc421project2-zjiang1
 NAME = Fearless Coyote
 
 # *DOCUMENTATION*
@@ -940,7 +940,7 @@ endif
 
 
 ifeq ($(KBUILD_EXTMOD),)
-core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/
+core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/ p2ids/kernel/
 
 vmlinux-dirs	:= $(patsubst %/,%,$(filter %/, $(init-y) $(init-m) \
 		     $(core-y) $(core-m) $(drivers-y) $(drivers-m) \

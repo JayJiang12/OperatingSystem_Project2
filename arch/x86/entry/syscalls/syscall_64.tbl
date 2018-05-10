@@ -339,6 +339,13 @@
 330	common	pkey_alloc		sys_pkey_alloc
 331	common	pkey_free		sys_pkey_free
 332	common	statx			sys_statx
+333	common	set_PID			sys_set_PID
+334	common	get_PID			sys_get_PID
+335	common	set_syscall_list	sys_set_syscall_list
+336	common	get_syscall_list	sys_get_syscall_list
+337	common	set_allow		sys_set_allow
+338	common	get_allow		sys_get_allow
+339	common	get_count		sys_get_count
 
 #
 # x32-specific system call numbers start at 512 to avoid cache impact
