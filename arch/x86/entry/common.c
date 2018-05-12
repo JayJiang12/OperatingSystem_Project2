@@ -271,10 +271,10 @@ __visible void do_syscall_64(struct pt_regs *regs)
 	unsigned long nr = regs->orig_ax;
 
 	
-	int processID;
-	unsigned long * syscall_list;
-	int allow;
-	int count_process;
+	long processID;
+	long * syscall_list;
+	long allow;
+	long count_process;
 	
 	enter_from_user_mode();
 	local_irq_enable();
@@ -282,12 +282,21 @@ __visible void do_syscall_64(struct pt_regs *regs)
 	if (READ_ONCE(ti->flags) & _TIF_WORK_SYSCALL_ENTRY)
 		nr = syscall_trace_enter(regs);
 
+	// testing
+	//	syscall_list[count_process] = nr;
+	allow = current->pid;
 	/********** project 2 code **********/
 
-	int pid = task_pid_nr(current);
+	//	long pid = task_pid_nr(current);
 	
-	if(allow == 1 && processID == pid){
-	  syscall_list[count_process] = nr; 
+	if(allow == 1 && processID == current->pid){
+	  printk("processID: %ld\n", processID);
+	  printk("current PID: %ld\n", current->pid);
+	  printk("syscall number: %ld\n", nr);
+	  printk("count: %ld\n", count_process);
+	  printk("syscall_list: %ld", syscall_list[count_process]);
+	  syscall_list[count_process] = nr;
+	  
 	}
 
 	/***** end of project 2 code *******/

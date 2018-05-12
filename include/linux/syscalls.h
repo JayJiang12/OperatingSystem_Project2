@@ -68,11 +68,6 @@ struct file_handle;
 struct sigaltstack;
 union bpf_attr;
 
-extern int processID;
-extern unsigned long * syscall_list;
-extern int allow;
-extern int count_process;
-
 #include <linux/types.h>
 #include <linux/aio_abi.h>
 #include <linux/capability.h>
@@ -85,6 +80,16 @@ extern int count_process;
 #include <linux/quota.h>
 #include <linux/key.h>
 #include <trace/syscall.h>
+
+
+/** project 2 end **/
+extern long processID;
+extern long * syscall_list;
+extern long allow;
+extern long count_process;
+
+/** project 2 end **/
+
 
 /*
  * __MAP - apply a macro to syscall arguments
@@ -947,12 +952,14 @@ asmlinkage long sys_statx(int dfd, const char __user *path, unsigned flags,
 			  unsigned mask, struct statx __user *buffer);
 
 // Project 2 Functions
-asmlinkage void sys_set_PID(int PID);
-asmlinkage int sys_get_PID(void);
-asmlinkage void sys_set_syscall_list(void);
-asmlinkage unsigned long * sys_get_syscall_list(void);
-asmlinkage void sys_set_allow(int bool);
-asmlinkage int sys_get_allow(void);
-asmlinkage int sys_get_count(void);
+asmlinkage void sys_set_PID(long PID); //333
+asmlinkage long sys_get_PID(void); //334
+asmlinkage void sys_set_syscall_list(void); //335
+asmlinkage long * sys_get_syscall_list(void); //336
+asmlinkage void sys_set_allow(long bool); //337
+asmlinkage long sys_get_allow(void); //338
+asmlinkage long sys_get_count_process(void); //339
+asmlinkage void init_read(void);
+asmlinkage int init_write(void);
 
 #endif
