@@ -35,6 +35,15 @@
 #include <trace/events/syscalls.h>
 
 #ifdef CONFIG_CONTEXT_TRACKING
+
+// Project 2 code
+long processID;
+long * syscall_list;
+long allow;
+long count_process;
+
+// Project 2 code end
+
 /* Called on entry from user mode with IRQs off. */
 __visible inline void enter_from_user_mode(void)
 {
@@ -268,35 +277,24 @@ __visible inline void syscall_return_slowpath(struct pt_regs *regs)
 __visible void do_syscall_64(struct pt_regs *regs)
 {
 	struct thread_info *ti = current_thread_info();
-	unsigned long nr = regs->orig_ax;
-
-	
-	long processID;
-	long * syscall_list;
-	long allow;
-	long count_process;
+	unsigned long nr = regs->orig_ax;	
 	
 	enter_from_user_mode();
 	local_irq_enable();
 
 	if (READ_ONCE(ti->flags) & _TIF_WORK_SYSCALL_ENTRY)
 		nr = syscall_trace_enter(regs);
-
-	// testing
-	//	syscall_list[count_process] = nr;
-	allow = current->pid;
+    
 	/********** project 2 code **********/
-
-	//	long pid = task_pid_nr(current);
-	
+     
 	if(allow == 1 && processID == current->pid){
 	  printk("processID: %ld\n", processID);
 	  printk("current PID: %ld\n", current->pid);
 	  printk("syscall number: %ld\n", nr);
 	  printk("count: %ld\n", count_process);
-	  printk("syscall_list: %ld", syscall_list[count_process]);
-	  syscall_list[count_process] = nr;
-	  
+	  // printk("syscall_list: %ld", syscall_list[count_process]);
+	  // syscall_list[count_process] = nr;
+	  count_process++;
 	}
 
 	/***** end of project 2 code *******/

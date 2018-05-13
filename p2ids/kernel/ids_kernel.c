@@ -40,15 +40,13 @@ asmlinkage void sys_set_PID(long PID){
 }
 
 asmlinkage long sys_get_PID(void){
-  printk("current ID %ld", current->pid);
-  printk("allow: %ld", allow);
   return processID;
 }
 
 asmlinkage void sys_set_syscall_list(void){
 
   syscall_list[1000];
-  count_process = 0;
+  count_process = 3;
 }
 
 asmlinkage long * sys_get_syscall_list(void){
