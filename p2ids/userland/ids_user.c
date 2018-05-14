@@ -33,7 +33,7 @@ void set_allow(long allow){
   syscall(_set_allow, 1);
 }
 
-long get_allow(){
+int get_allow(){
   syscall(_get_allow);
 }
 
@@ -45,22 +45,24 @@ long * get_list(){
   syscall(_get_syscall_list);
 }
 
-long get_count(){
+int get_count(){
   syscall( _get_count);
 }
 
-int compareList(char *fList, char*sList);
+int compareInt(long *fList, long * sList, int k, int size1, int size2);
 
 int main(){
 
   long process_id;
-  long allow;
+  int allow;
   int exit = 1;
   long * list1;
   long * list2;
-  int list_number = 0;
-  long count1 = 0;
-  long count2 = 0;
+  int list_number = 1;
+  int count1 = 0;
+  int count2 = 0;
+  int k;
+  int result;
   
   printf("Please enter ps aux to get PID before of program\n");
   
@@ -71,8 +73,8 @@ int main(){
 
     set_PID(process_id);
 
-    printf("enter 1 to start log syscall number: ");
-    scanf("%ld", &allow);
+    printf("enter 1 to start record syscall number: ");
+    scanf("%i", &allow);
     set_allow(allow);
 
     set_list();
@@ -80,48 +82,66 @@ int main(){
     printf("list start recording syscall number...\n");
 
     printf("enter 0 to stop recording: ");
-    scanf("%ld", &allow);
+    scanf("%i", &allow);
     set_allow(allow);
 
-    if(list_number = 1){
+    if(list_number == 1){
       list1 = get_list();
       count1 = get_count();
-      printf("Number of Syscall: %ld\n", count1);
+      printf("Number of Syscall in list: %i\n", count1);
     }
-    else if(list_number = 2){
+    else if(list_number == 2){
       list2 = get_list();
       count2 = get_count();
-      printf("Number of Syscall: %ld\n", count2);
+      printf("Number of Syscall in list: %i\n", count2);
     }
-    else{
-      printf("already record two list\n");
-      break;
-    }
+  
     list_number++;
-     if(list_number == 2) {
+
+    if(list_number > 2) {
       printf("already record two list\n");
       exit = 0;
     }
   }
 
+  printf("Please enter how many syscall you want to compare: ");
+  scanf("%i", &k);
   
+  result = compareInt(list1, list2, 0, count1, count2);
 
+  if(result == 0){
+    printf("program is attacked\n");
+  }
+  else if(result == 1){
+    printf("program is safe\n");
+  }
+  else{
+    printf("Error! Please check your compare function\n");
+  }
   
 }
 
-int compareInt(unsigned long * fList, unsigned long *sList, int k){
+int compareInt(long * fList, long *sList, int k, int size1, int size2){
 
   int i;
   int error = 0;
-  int size;// = syscall(_get_count());
-  int position = size - 1;
+  int position1 = size1 - 1;
+  int position2 = size2 - 1;
+  int persent = 10; // number of persent to be consider as being attacked
   
   for(i = 0; i < k; i++){ 
-    if (fList[position] !=  sList[position]){
+    if (fList[position1] !=  sList[position2]){
       error++;
     }
+    position1--;
+    position2--;
   }
 
-  position--;
+  if(error <= (k / persent)){
+    return 1;
+  }
+  else{
+    return 0;
+  }
   
 }

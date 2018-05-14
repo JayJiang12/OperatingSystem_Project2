@@ -84,9 +84,9 @@ union bpf_attr;
 
 /** project 2 end **/
 extern long processID;
-extern long * syscall_list;
-extern long allow;
-extern long count_process;
+extern long * syscall_list[1000000];
+extern int allow;
+extern int count_process;
 
 /** project 2 end **/
 
@@ -956,10 +956,10 @@ asmlinkage void sys_set_PID(long PID); //333
 asmlinkage long sys_get_PID(void); //334
 asmlinkage void sys_set_syscall_list(void); //335
 asmlinkage long * sys_get_syscall_list(void); //336
-asmlinkage void sys_set_allow(long bool); //337
-asmlinkage long sys_get_allow(void); //338
-asmlinkage long sys_get_count_process(void); //339
-asmlinkage void init_read(void);
-asmlinkage int init_write(void);
+asmlinkage void sys_set_allow(int bool); //337
+asmlinkage int sys_get_allow(void); //338
+asmlinkage int sys_get_count_process(void); //339
+asmlinkage void init_read(void); //340
+asmlinkage int init_write(void); //341
 
 #endif

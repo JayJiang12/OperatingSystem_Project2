@@ -8,4 +8,9 @@ kernel directory containing kernel-space code
 
 idsdata containing sampled good data for the operation of the IDS
 
-misc directory is optional directory containing any other miscelaneous information/data 
+misc directory is optional directory containing any other miscelaneous information/data
+
+# syscall number is been store in list in kernel but not in userland.
+# there is printk in get_syscall_list function in kernel folder/ids_kernel
+# to print out all the sycall_list in kernel. current it set to 20 so only
+# print out first 20 syscall in the list.

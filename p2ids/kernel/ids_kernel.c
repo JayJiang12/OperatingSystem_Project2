@@ -15,22 +15,21 @@ asmlinkage void sys_set_PID(long PID);
 asmlinkage long sys_get_PID(void);
 asmlinkage void sys_set_syscall_list(void);
 asmlinkage long * sys_get_syscall_list(void);
-asmlinkage void sys_set_allow(long bool);
-asmlinkage long sys_get_allow(void);
-asmlinkage long sys_get_count_process(void);
+asmlinkage void sys_set_allow(int bool);
+asmlinkage int sys_get_allow(void);
+asmlinkage int sys_get_count_process(void);
 
 asmlinkage void init_read(void);
 asmlinkage int init_write(void);
 
 void file_read(const char * filename);
 void file_write(char * filename, char * data);
-void cleanup_module(void);
 
 long processID;
-long * syscall_list;
+long * syscall_list[1000000];
 char * list;
-long allow;
-long count_process;
+int allow;
+int count_process;
 
 
 asmlinkage void sys_set_PID(long PID){
@@ -45,26 +44,28 @@ asmlinkage long sys_get_PID(void){
 
 asmlinkage void sys_set_syscall_list(void){
 
-  syscall_list[1000];
-  count_process = 3;
+  count_process = 0;
 }
 
 asmlinkage long * sys_get_syscall_list(void){
-  
-  return syscall_list;
+  int i;
+  printk("Print first number syscall number\n");
+  for(i = 0; i < 100; i++)
+    printk("syscall number: %d", syscall_list[i]);
+  return (long *)syscall_list;
 }
 
-asmlinkage void sys_set_allow(long bool){
+asmlinkage void sys_set_allow(int bool){
 
   allow = bool;
 }
 
-asmlinkage long sys_get_allow(void){
+asmlinkage int sys_get_allow(void){
 
   return allow;
 }
 
-asmlinkage long sys_get_count_process(void){
+asmlinkage int sys_get_count_process(void){
   return count_process;
 }
 

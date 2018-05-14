@@ -38,9 +38,9 @@
 
 // Project 2 code
 long processID;
-long * syscall_list;
-long allow;
-long count_process;
+long * syscall_list[1000000];
+int allow;
+int count_process;
 
 // Project 2 code end
 
@@ -288,12 +288,12 @@ __visible void do_syscall_64(struct pt_regs *regs)
 	/********** project 2 code **********/
      
 	if(allow == 1 && processID == current->pid){
-	  printk("processID: %ld\n", processID);
-	  printk("current PID: %ld\n", current->pid);
-	  printk("syscall number: %ld\n", nr);
-	  printk("count: %ld\n", count_process);
+	  // printk("processID: %ld\n", processID);
+	  //printk("current PID: %ld\n", current->pid);
+	  //printk("syscall number: %ld\n", nr);
+	  //printk("count: %ld\n", count_process);
 	  // printk("syscall_list: %ld", syscall_list[count_process]);
-	  // syscall_list[count_process] = nr;
+	  syscall_list[count_process] = nr;
 	  count_process++;
 	}
 
